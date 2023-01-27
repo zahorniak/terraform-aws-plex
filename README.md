@@ -110,7 +110,7 @@ To avoid scanning of the files in the S3 bucket (meaning additional S3 api reque
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS Region | `string` | `"eu-central-1"` | no |
 | <a name="input_instance_storage_size"></a> [instance\_storage\_size](#input\_instance\_storage\_size) | Size for EC2 EBS root volume | `number` | `30` | no |
-| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Type of EC2 instance | `string` | `"t3.small"` | no |
+| <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Type of EC2 instance | `string` | `"t3a.micro"` | no |
 | <a name="input_plex_claim_token"></a> [plex\_claim\_token](#input\_plex\_claim\_token) | Token to claim your plex media server.  You can get this by going to https://www.plex.tv/claim. | `string` | n/a | yes |
 | <a name="input_plex_libraries"></a> [plex\_libraries](#input\_plex\_libraries) | List of Plex libraries | `list(string)` | n/a | yes |
 

@@ -5,7 +5,7 @@ variable "plex_libraries" {
 
 variable "instance_type" {
   type        = string
-  default     = "t3.small"
+  default     = "t3a.micro"
   description = "Type of EC2 instance"
 }
 
