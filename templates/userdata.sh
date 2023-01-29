@@ -13,11 +13,11 @@ aws ec2 associate-address \
 # mount s3 bucket
 %{ for BUCKET in BUCKETS ~}
 mkdir -p /plex-data/${BUCKET}
-s3fs ${BUCKET} -o iam_role=auto -o mp_umask=000 -o umask=000 -o use_cache=/tmp -o allow_other -o ensure_diskfree=500 /plex-data/${BUCKET}
+s3fs ${BUCKET} -o iam_role=auto -o mp_umask=000 -o umask=000 -o use_cache=/tmp -o allow_other -o ensure_diskfree=500 -o notsup_compat_dir /plex-data/${BUCKET}
 %{ endfor ~}
 
 mkdir /plex
-s3fs ${CONFIG_BUCKET} -o iam_role=auto -o mp_umask=000 -o umask=000 -o use_cache=/tmp -o allow_other -o ensure_diskfree=500 /plex
+s3fs ${CONFIG_BUCKET} -o iam_role=auto -o mp_umask=000 -o umask=000 -o use_cache=/tmp -o allow_other -o ensure_diskfree=500 -o notsup_compat_dir /plex
 
 # get claim token from parameter store
 CLAIM_TOKEN=$(aws ssm get-parameter --name /plex/claim_token --region eu-central-1 --with-decryption | jq -r ".Parameter.Value")
@@ -25,7 +25,7 @@ CLAIM_TOKEN=$(aws ssm get-parameter --name /plex/claim_token --region eu-central
 systemctl start docker
 systemctl enable docker.service
 
-cat >/etc/systemd/system/plex.service <<EOF 
+cat >/etc/systemd/system/plex.service <<EOF
 [Unit]
 Description=Plex container
 After=docker.service plex.mount ${BUCKET_FSTAB_STRING}
