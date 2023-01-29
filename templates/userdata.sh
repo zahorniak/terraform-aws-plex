@@ -22,6 +22,11 @@ s3fs ${CONFIG_BUCKET} -o iam_role=auto -o mp_umask=000 -o umask=000 -o use_cache
 # get claim token from parameter store
 CLAIM_TOKEN=$(aws ssm get-parameter --name /plex/claim_token --region eu-central-1 --with-decryption | jq -r ".Parameter.Value")
 
+# FSTAB
+%{ for BUCKET in BUCKETS ~}
+echo "s3fs#${BUCKET} /plex-data/${BUCKET} fuse _netdev,iam_role=auto,mp_umask=000,umask=000,use_cache=/tmp,allow_other,ensure_diskfree=500" >> /etc/fstab
+%{ endfor ~}
+
 systemctl start docker
 systemctl enable docker.service
 

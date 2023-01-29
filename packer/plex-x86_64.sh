@@ -1,5 +1,5 @@
 sudo yum update -y
-sudo yum install -y docker jq automake fuse fuse-devel gcc-c++ git libcurl-devel libxml2-devel make openssl-devel mailcap
+sudo yum install -y docker jq automake fuse fuse-devel gcc-c++ git libcurl-devel libxml2-devel make openssl-devel mailcap htop
 
 git clone https://github.com/s3fs-fuse/s3fs-fuse.git
 cd s3fs-fuse

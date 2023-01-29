@@ -2,9 +2,8 @@
   "builders": [
     {
       "ami_description": "Amazon Linux Image x86/x64 with packages for Plex Media Server",
-      "ami_name": "plex-x86_64-20201106",
+      "ami_name": "plex-x86_64",
       "instance_type": "t3.micro",
-      "region": "{{user `region`}}",
       "run_tags": {
         "Author": "raowbe",
         "Name": "packer-builder-plex",
@@ -30,9 +29,6 @@
       "script": "./plex-x86_64.sh",
       "type": "shell"
     }
-  ],
-  "variables": {
-    "region": "eu-central-1"
-  }
+  ]
 }
 
