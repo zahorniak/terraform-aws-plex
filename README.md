@@ -96,7 +96,6 @@ To avoid scanning of the files in the S3 bucket (meaning additional S3 api reque
 
 | Name | Type |
 |------|------|
-| [aws_eip.plex](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
 | [aws_iam_policy.plex_server](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_security_group.plex_admin](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) | resource |
 | [aws_ssm_parameter.plex_claim_token](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
@@ -116,7 +115,5 @@ To avoid scanning of the files in the S3 bucket (meaning additional S3 api reque
 
 ## Outputs
 
-| Name | Description |
-|------|-------------|
-| <a name="output_plex_url"></a> [plex\_url](#output\_plex\_url) | Plex server URL |
+No outputs.
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

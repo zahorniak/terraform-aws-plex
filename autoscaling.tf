@@ -34,7 +34,6 @@ module "plex_autoscaling" {
     {
       BUCKETS             = local.buckets,
       BUCKET_FSTAB_STRING = local.bucket_fstab_string
-      EIP_ID              = aws_eip.plex.id
       CONFIG_BUCKET       = module.s3_plex_db.s3_bucket_id
     }
   ))

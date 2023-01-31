@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# Associate Elastic IP
-INSTANCE_ID=$(curl http://169.254.169.254/latest/meta-data/instance-id)
-EIP_ID=${EIP_ID}
-
-aws ec2 associate-address \
---instance-id "$INSTANCE_ID" \
---allocation-id "$EIP_ID" \
---allow-reassociation \
---region eu-central-1
+sudo dd if=/dev/zero of=/swap.file bs=1M count=2048
+sudo chmod 600 /swap.file
+sudo mkswap /swap.file
+sudo swapon /swap.file
 
 # mount s3 bucket
 %{ for BUCKET in BUCKETS ~}
