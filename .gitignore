@@ -37,3 +37,5 @@ terraform.tfvars
 .terraform.lock.hcl
 backend.tf
 infracost-usage.yml
+
+.DS_Store
