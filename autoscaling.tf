@@ -57,24 +57,6 @@ module "plex_autoscaling" {
     }
   ]
 
-  schedules = {
-    night = {
-      min_size         = 0
-      max_size         = 0
-      desired_capacity = 0
-      recurrence       = "0 0 * * *" # Mon-Fri in the evening
-      time_zone        = "Europe/Kyiv"
-    }
-
-    morning = {
-      min_size         = 1
-      max_size         = 1
-      desired_capacity = 1
-      recurrence       = "0 9 * * *" # Mon-Fri in the morning
-      time_zone        = "Europe/Kyiv"
-    }
-  }
-
   create_iam_instance_profile = true
   iam_role_name               = "plex"
   iam_role_path               = "/ec2/"

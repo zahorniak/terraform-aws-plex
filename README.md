@@ -75,13 +75,13 @@ To avoid scanning of the files in the S3 bucket (meaning additional S3 api reque
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.30 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.30 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | ~> 4.30 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.30 |
 
 ## Modules
 
@@ -108,6 +108,7 @@ To avoid scanning of the files in the S3 bucket (meaning additional S3 api reque
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS Region | `string` | `"eu-central-1"` | no |
+| <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | Force destroy the S3 bucket | `bool` | `false` | no |
 | <a name="input_instance_storage_size"></a> [instance\_storage\_size](#input\_instance\_storage\_size) | Size for EC2 EBS root volume | `number` | `30` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Type of EC2 instance | `string` | `"t3a.micro"` | no |
 | <a name="input_plex_claim_token"></a> [plex\_claim\_token](#input\_plex\_claim\_token) | Token to claim your plex media server.  You can get this by going to https://www.plex.tv/claim. | `string` | n/a | yes |

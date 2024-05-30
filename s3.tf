@@ -7,7 +7,8 @@ module "s3_plex_db" {
   version = "~> 3.3"
 
   bucket_prefix = "plex-db-"
-  acl           = "private"
+
+  force_destroy = var.force_destroy
 
   block_public_acls   = false
   block_public_policy = false
@@ -26,7 +27,7 @@ module "s3_plex_db" {
       enabled = true
       transition = [
         {
-          days          = 1
+          days          = 0
           storage_class = "INTELLIGENT_TIERING"
         }
       ]
@@ -66,7 +67,8 @@ module "s3_plex_storage" {
   version = "~> 3.3"
 
   bucket_prefix = "${each.value}-"
-  acl           = "private"
+
+  force_destroy = var.force_destroy
 
   block_public_acls   = false
   block_public_policy = false
@@ -85,7 +87,7 @@ module "s3_plex_storage" {
       enabled = true
       transition = [
         {
-          days          = 1
+          days          = 0
           storage_class = "INTELLIGENT_TIERING"
         }
       ]

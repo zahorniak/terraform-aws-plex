@@ -25,3 +25,9 @@ variable "aws_region" {
   default     = "eu-central-1"
   description = "AWS Region"
 }
+
+variable "force_destroy" {
+  type        = bool
+  default     = false
+  description = "Force destroy the S3 bucket"
+}

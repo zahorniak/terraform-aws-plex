@@ -4,15 +4,16 @@ data "aws_availability_zones" "main" {
 
 data "aws_ami" "plex" {
   most_recent = true
-  owners      = ["self"]
+  owners      = ["amazon"]
 
   filter {
-    name   = "name"
-    values = ["plex-*"]
+    name = "name"
+    #     values = ["${var.packer_ami_prefix}-*"]
+    values = ["amzn2-ami-hvm-*-x86_64-ebs"]
   }
 
   filter {
     name   = "architecture"
-    values = ["x86_64"] # x86_64 or arm64
+    values = ["x86_64"]
   }
 }
