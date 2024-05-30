@@ -1,49 +1,10 @@
-# Plex Media Server on AWS using Spot Instances and S3 for Media Storage
-
-## Prerequisites
- * AWS Account: https://console.aws.amazon.com/
- * Packer: https://developer.hashicorp.com/packer/downloads
- * Terraform: https://developer.hashicorp.com/terraform/downloads
- * AWS CLI: https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
- * Valid AWS Credentials: https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html
-
-## Deployment Steps
-
-1. Run Packer to create your AMI
-2. Run Terraform
-
-## Packer
-
-This Packer configuration will install the necessary software to run Plex Media Server in a Docker Container as well as s3fs-fuse which gives you the ability have a FUSE-based file system backed by Amazon S3.
-
-* https://hub.docker.com/r/plexinc/pms-docker/
-* https://github.com/s3fs-fuse/s3fs-fuse
-
-### Running Packer (current only x86 available)
-
-~~There are two different configurations, one for the x86 architecture and one for the ARM architecture.~~
-
-Update the AMI name in the json file, so it is unique by updating the suffix in the format of YYYYMMDD for the date.
-
-After changing into the packer directory run one of the following commands to build your AMI:
-
-x86:
-```packer build .\plex-x86_64.json```
-
-~~ARM:~~
-~~```packer build .\plex-arm64.json```~~
+# Terraform module for Plex Media Server on AWS using Spot Instances and S3 for Media Storage
 
 ## Plex Claim Token
 
 Get Plex Claim Token: https://www.plex.tv/claim
 
 The Claim Token is only good for a few minutes, so it is easiest to not set this variable and let Terraform prompt you for it.
-
-## Running Terraform
-
-First, make sure you've run `terraform init` on your repo.
-
-Then run `terraform plan` and if it is going to do what you expect run `terraform apply`.
 
 ## After your server is done spinning up
 
