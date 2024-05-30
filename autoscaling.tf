@@ -1,6 +1,6 @@
 module "plex_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "~> 6.5"
+  version = "~> 7.5"
 
   name                                 = "plex"
   use_name_prefix                      = true
