@@ -48,7 +48,7 @@ To avoid scanning of the files in the S3 bucket (meaning additional S3 api reque
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_plex_autoscaling"></a> [plex\_autoscaling](#module\_plex\_autoscaling) | terraform-aws-modules/autoscaling/aws | ~> 6.5 |
+| <a name="module_plex_autoscaling"></a> [plex\_autoscaling](#module\_plex\_autoscaling) | terraform-aws-modules/autoscaling/aws | ~> 7.7 |
 | <a name="module_s3_plex_db"></a> [s3\_plex\_db](#module\_s3\_plex\_db) | terraform-aws-modules/s3-bucket/aws | ~> 3.3 |
 | <a name="module_s3_plex_storage"></a> [s3\_plex\_storage](#module\_s3\_plex\_storage) | terraform-aws-modules/s3-bucket/aws | ~> 3.3 |
 | <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 5.9 |
