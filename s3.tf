@@ -4,7 +4,7 @@
 
 module "s3_plex_db" {
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "~> 3.3"
+  version = "~> 4.1"
 
   bucket_prefix = "plex-db-"
 
@@ -64,7 +64,7 @@ module "s3_plex_storage" {
   for_each = toset(var.plex_libraries)
 
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "~> 3.3"
+  version = "~> 4.1"
 
   bucket_prefix = "${each.value}-"
 
