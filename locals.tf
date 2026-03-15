@@ -1,19 +1,21 @@
 locals {
-  vpc_cidr_blocks = cidrsubnets("10.0.0.0/16", 2, 2, 2, 2)
-}
+  vpc_cidr = "10.0.0.0/16"
 
-locals {
-  buckets = flatten([
-    for bucket in module.s3_plex_storage : [
-      bucket.s3_bucket_id
-    ]
-  ])
-
-  bucket_fstab_list = flatten([
-    for bucket in module.s3_plex_storage : [
-      "plex\\x2ddata-${replace(bucket.s3_bucket_id, "-", "\\x2d")}.mount"
-    ]
-  ])
-
-  bucket_fstab_string = join(" ", local.bucket_fstab_list)
+  s3_lifecycle_rules = [
+    {
+      id      = "moveToIT"
+      enabled = true
+      transition = [
+        {
+          days          = 0
+          storage_class = "INTELLIGENT_TIERING"
+        }
+      ]
+    },
+    {
+      id                                     = "abortIncompleteUploads"
+      enabled                                = true
+      abort_incomplete_multipart_upload_days = 1
+    }
+  ]
 }

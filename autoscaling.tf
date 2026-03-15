@@ -1,26 +1,21 @@
 module "plex_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "~> 7.7"
+  version = "~> 9.2"
 
-  name                                 = "plex"
-  use_name_prefix                      = true
-  ignore_desired_capacity_changes      = true
-  min_size                             = 1
-  max_size                             = 1
-  desired_capacity                     = 1
-  wait_for_capacity_timeout            = 0
-  health_check_type                    = "EC2"
-  vpc_zone_identifier                  = module.vpc.public_subnets
-  instance_initiated_shutdown_behavior = "terminate"
-  protect_from_scale_in                = false
-
+  name                            = "plex"
+  use_name_prefix                 = true
+  ignore_desired_capacity_changes = true
+  min_size                        = 1
+  max_size                        = 1
+  desired_capacity                = 1
+  wait_for_capacity_timeout       = 0
+  health_check_type               = "EC2"
+  vpc_zone_identifier             = module.vpc.public_subnets
   instance_refresh = {
     strategy = "Rolling"
     preferences = {
-      checkpoint_delay       = 600
-      checkpoint_percentages = [35, 70, 100]
       instance_warmup        = 30
-      min_healthy_percentage = 50
+      min_healthy_percentage = 0
     }
   }
 
@@ -32,9 +27,11 @@ module "plex_autoscaling" {
 
   user_data = base64encode(templatefile("${path.module}/templates/userdata.sh",
     {
-      BUCKETS             = local.buckets,
-      BUCKET_FSTAB_STRING = local.bucket_fstab_string
-      CONFIG_BUCKET       = module.s3_plex_db.s3_bucket_id
+      STORAGE_BUCKET     = module.s3_plex_storage.s3_bucket_id
+      CONFIG_BUCKET      = module.s3_plex_db.s3_bucket_id
+      LIBRARIES          = var.plex_libraries
+      AWS_REGION         = var.aws_region
+      CLAIM_TOKEN_SHA256 = sha256(var.plex_claim_token)
     }
   ))
 
@@ -51,8 +48,6 @@ module "plex_autoscaling" {
         encrypted             = true
         volume_size           = var.instance_storage_size
         volume_type           = "gp3"
-        iops                  = 3000
-        throughput            = 125
       }
     }
   ]
@@ -62,27 +57,18 @@ module "plex_autoscaling" {
   iam_role_path               = "/ec2/"
 
   iam_role_policies = {
-    AmazonSSMManagedInstanceCore        = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
-    AmazonEC2ContainerServiceforEC2Role = "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceforEC2Role",
-    S3Access                            = aws_iam_policy.plex_server.arn
-  }
-
-  capacity_reservation_specification = {
-    capacity_reservation_preference = "open"
+    AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore",
+    S3Access                     = aws_iam_policy.plex_server.arn
   }
 
   instance_market_options = {
     market_type = "spot"
   }
 
-  maintenance_options = {
-    auto_recovery = "default"
-  }
-
   metadata_options = {
     http_endpoint               = "enabled"
-    http_tokens                 = "optional"
-    http_put_response_hop_limit = 32
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 2
     instance_metadata_tags      = "enabled"
   }
 

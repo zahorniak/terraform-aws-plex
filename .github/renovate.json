@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits"
+  ],
+  "enabledManagers": [
+    "github-actions",
+    "terraform"
+  ],
+  "reviewersFromCodeOwners": true,
+  "dependencyDashboard": true,
+  "commitMessageLowerCase": "never",
+  "minimumReleaseAge": "30 days"
+}

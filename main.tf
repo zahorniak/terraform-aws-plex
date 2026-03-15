@@ -1,6 +1,5 @@
 provider "aws" {
-  region                      = var.aws_region
-  skip_credentials_validation = true
+  region = var.aws_region
 
   default_tags {
     tags = {
