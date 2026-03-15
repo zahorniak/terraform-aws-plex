@@ -14,8 +14,7 @@ data "aws_iam_policy_document" "plex_ec2" {
 
   statement {
     actions = [
-      "ssm:DescribeParameters",
-      "ec2:AssociateAddress"
+      "ssm:DescribeParameters"
     ]
     resources = [
       "*"
