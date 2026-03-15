@@ -24,8 +24,9 @@ mkdir -p /plex-data/${LIB}
 
 # FSTAB
 echo "s3fs#${STORAGE_BUCKET} /plex-data fuse _netdev,iam_role=auto,mp_umask=000,umask=000,use_cache=/tmp,allow_other,ensure_diskfree=500" >> /etc/fstab
+echo "s3fs#${CONFIG_BUCKET} /plex fuse _netdev,iam_role=auto,mp_umask=000,umask=000,use_cache=/tmp,allow_other,ensure_diskfree=500" >> /etc/fstab
 
-CLAIM_TOKEN=$(aws ssm get-parameter --name /plex/claim_token --region eu-central-1 --with-decryption | jq -r ".Parameter.Value")
+CLAIM_TOKEN=$(aws ssm get-parameter --name /plex/claim_token --region ${AWS_REGION} --with-decryption | jq -r ".Parameter.Value")
 PUBLIC_IP=$(TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600") && curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
 
 systemctl start docker

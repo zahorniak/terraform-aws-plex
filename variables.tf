@@ -17,6 +17,7 @@ variable "instance_storage_size" {
 
 variable "plex_claim_token" {
   type        = string
+  sensitive   = true
   description = "Token to claim your plex media server. You can get this by going to https://www.plex.tv/claim."
 }
 

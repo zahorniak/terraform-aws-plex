@@ -30,28 +30,28 @@ To avoid scanning of the files in the S3 bucket (meaning additional S3 api reque
    * Remove old cache files every week
    * Upgrade media analysis during maintenance
 
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.7 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 4.30 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5.7 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.29 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 4.30 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.29 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_plex_autoscaling"></a> [plex\_autoscaling](#module\_plex\_autoscaling) | terraform-aws-modules/autoscaling/aws | ~> 7.7 |
-| <a name="module_s3_plex_db"></a> [s3\_plex\_db](#module\_s3\_plex\_db) | terraform-aws-modules/s3-bucket/aws | ~> 3.3 |
-| <a name="module_s3_plex_storage"></a> [s3\_plex\_storage](#module\_s3\_plex\_storage) | terraform-aws-modules/s3-bucket/aws | ~> 3.3 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 5.9 |
+| <a name="module_plex_autoscaling"></a> [plex\_autoscaling](#module\_plex\_autoscaling) | terraform-aws-modules/autoscaling/aws | ~> 9.2 |
+| <a name="module_s3_plex_db"></a> [s3\_plex\_db](#module\_s3\_plex\_db) | terraform-aws-modules/s3-bucket/aws | ~> 5.10 |
+| <a name="module_s3_plex_storage"></a> [s3\_plex\_storage](#module\_s3\_plex\_storage) | terraform-aws-modules/s3-bucket/aws | ~> 5.10 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | terraform-aws-modules/vpc/aws | ~> 6.6 |
 
 ## Resources
 
@@ -72,10 +72,10 @@ To avoid scanning of the files in the S3 bucket (meaning additional S3 api reque
 | <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | Force destroy the S3 bucket | `bool` | `false` | no |
 | <a name="input_instance_storage_size"></a> [instance\_storage\_size](#input\_instance\_storage\_size) | Size for EC2 EBS root volume | `number` | `30` | no |
 | <a name="input_instance_type"></a> [instance\_type](#input\_instance\_type) | Type of EC2 instance | `string` | `"t3a.micro"` | no |
-| <a name="input_plex_claim_token"></a> [plex\_claim\_token](#input\_plex\_claim\_token) | Token to claim your plex media server.  You can get this by going to https://www.plex.tv/claim. | `string` | n/a | yes |
-| <a name="input_plex_libraries"></a> [plex\_libraries](#input\_plex\_libraries) | List of Plex libraries | `list(string)` | n/a | yes |
+| <a name="input_plex_claim_token"></a> [plex\_claim\_token](#input\_plex\_claim\_token) | Token to claim your plex media server. You can get this by going to https://www.plex.tv/claim. | `string` | n/a | yes |
+| <a name="input_plex_libraries"></a> [plex\_libraries](#input\_plex\_libraries) | List of Plex library folder names (created as prefixes inside a single S3 storage bucket) | `list(string)` | n/a | yes |
 
 ## Outputs
 
 No outputs.
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->

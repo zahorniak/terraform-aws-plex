@@ -1,5 +1,5 @@
 locals {
-  vpc_cidr_blocks = cidrsubnets("10.0.0.0/16", 2, 2, 2, 2)
+  vpc_cidr = "10.0.0.0/16"
 
   s3_lifecycle_rules = [
     {
