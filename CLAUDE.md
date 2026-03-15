@@ -28,7 +28,7 @@ There are no automated tests. Validation is done via `terraform validate` and `t
 
 The module provisions a complete single-instance Plex deployment:
 
-- **VPC** (`vpc.tf`): `10.0.0.0/16` CIDR, 3 public + 3 private subnets, no NAT gateway
+- **VPC** (`vpc.tf`): `10.0.0.0/16` CIDR (stored as `local.vpc_cidr`), 3 public subnets only
 - **EC2** (`autoscaling.tf`): Single Spot instance via ASG with rolling refresh, Amazon Linux 2 AMI
 - **Storage** (`s3.tf`): Single S3 storage bucket with folder-based library prefixes + one DB backup bucket, all using INTELLIGENT_TIERING
 - **IAM** (`iam.tf`): Instance profile with S3 and SSM access
@@ -36,7 +36,7 @@ The module provisions a complete single-instance Plex deployment:
 - **Secrets** (`ssm.tf`): Plex claim token stored as SecureString in SSM Parameter Store
 - **Bootstrap** (`templates/userdata.sh`): Installs Docker/s3fs, mounts S3 buckets, starts Plex container as systemd service
 
-Subnet CIDRs are computed dynamically in `locals.tf` using `cidrsubnets()`.
+Subnet CIDRs are computed directly in `vpc.tf` using `cidrsubnets()`. VPC CIDR is defined once in `locals.tf`.
 
 ## Key Dependencies
 
@@ -51,3 +51,11 @@ Subnet CIDRs are computed dynamically in `locals.tf` using `cidrsubnets()`.
 - **PR titles**: Must follow Conventional Commits (enforced by CI). Scopes: `deps`, plus Jira-style project keys.
 - **Pre-commit hooks**: `terraform_fmt`, `terraform_validate`, `terraform_docs`, `terraform_tflint` (via `antonbabenko/pre-commit-terraform`).
 - **Code ownership**: `@zahorniak` is default CODEOWNER.
+
+## Coding Guidelines
+
+- Don't specify Terraform/AWS defaults explicitly (e.g., gp3 baseline IOPS, `protect_from_scale_in = false`). Only set values that differ from defaults.
+- `templates/userdata.sh` uses Terraform `templatefile()` variables — never hardcode values available as variables (e.g., region).
+- IMDSv2 is enforced (`http_tokens = "required"`). Userdata already uses v2 token flow.
+- The `plex_claim_token` variable is marked `sensitive = true`.
+- The module has no `outputs.tf` — it currently exposes no outputs.
