@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 5.9"
+  version = "~> 6.6"
 
   name = "plex"
 

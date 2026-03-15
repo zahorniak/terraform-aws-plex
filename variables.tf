@@ -1,6 +1,6 @@
 variable "plex_libraries" {
   type        = list(string)
-  description = "List of Plex libraries"
+  description = "List of Plex library folder names (created as prefixes inside a single S3 storage bucket)"
 }
 
 variable "instance_type" {
@@ -17,7 +17,7 @@ variable "instance_storage_size" {
 
 variable "plex_claim_token" {
   type        = string
-  description = "Token to claim your plex media server.  You can get this by going to https://www.plex.tv/claim."
+  description = "Token to claim your plex media server. You can get this by going to https://www.plex.tv/claim."
 }
 
 variable "aws_region" {

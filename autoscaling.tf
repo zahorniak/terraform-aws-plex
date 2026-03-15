@@ -1,6 +1,6 @@
 module "plex_autoscaling" {
   source  = "terraform-aws-modules/autoscaling/aws"
-  version = "~> 7.7"
+  version = "~> 9.2"
 
   name                                 = "plex"
   use_name_prefix                      = true
@@ -32,9 +32,10 @@ module "plex_autoscaling" {
 
   user_data = base64encode(templatefile("${path.module}/templates/userdata.sh",
     {
-      BUCKETS             = local.buckets,
-      BUCKET_FSTAB_STRING = local.bucket_fstab_string
-      CONFIG_BUCKET       = module.s3_plex_db.s3_bucket_id
+      STORAGE_BUCKET     = module.s3_plex_storage.s3_bucket_id
+      CONFIG_BUCKET      = module.s3_plex_db.s3_bucket_id
+      LIBRARIES          = var.plex_libraries
+      CLAIM_TOKEN_SHA256 = sha256(var.plex_claim_token)
     }
   ))
 

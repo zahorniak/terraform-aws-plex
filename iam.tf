@@ -4,20 +4,9 @@ data "aws_iam_policy_document" "plex_ec2" {
       "s3:*"
     ]
 
-    resources = flatten([
-      for bucket in module.s3_plex_storage : [
-        bucket.s3_bucket_arn,
-        "${bucket.s3_bucket_arn}/*",
-      ]
-    ])
-  }
-
-  statement {
-    actions = [
-      "s3:*"
-    ]
-
     resources = [
+      module.s3_plex_storage.s3_bucket_arn,
+      "${module.s3_plex_storage.s3_bucket_arn}/*",
       module.s3_plex_db.s3_bucket_arn,
       "${module.s3_plex_db.s3_bucket_arn}/*"
     ]
